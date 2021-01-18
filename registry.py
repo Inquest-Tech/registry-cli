@@ -247,7 +247,7 @@ class Registry:
         else:
             result = self.http.request(
                 method, "{0}{1}".format(self.hostname, path),
-                auth=(self.username, self.password.encode('utf-8')),
+                auth=(self.username, self.password.encode('utf-8'))
                 headers=self.HEADERS,
                 verify=not self.no_validate_ssl)
 
