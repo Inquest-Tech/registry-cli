@@ -247,9 +247,8 @@ class Registry:
         else:
             result = self.http.request(
                 method, "{0}{1}".format(self.hostname, path),
+                auth=(self.username, self.password.encode('utf-8')),
                 headers=self.HEADERS,
-                auth=(None if self.username == ""
-                    else (self.username, self.password)),
                 verify=not self.no_validate_ssl)
 
         # except Exception as error:
@@ -742,7 +741,6 @@ def main_loop(args):
 
     if args.no_validate_ssl:
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
     if args.read_password:
         if args.login is None:
             print("Please provide -l when using -w")
@@ -750,6 +748,7 @@ def main_loop(args):
 
         if ':' in args.login:
             (username, password) = args.login.split(':', 1)
+            print(username, password)
         else:
             username = args.login
 
